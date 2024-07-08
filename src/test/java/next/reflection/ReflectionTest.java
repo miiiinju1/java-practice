@@ -29,6 +29,21 @@ public class ReflectionTest {
                 .isEqualTo("재성");
     }
 
+    @DisplayName("인자를 가진 생성자의 인스턴스 생성")
+    @Test
+    void constructorWithArgs() throws Exception {
+        // given
+        Class<Student> clazz = Student.class;
+        Constructor<Student> constructor = clazz.getDeclaredConstructor(String.class, int.class);
+
+        // when
+        Student student = constructor.newInstance("재성", 28);
+
+        // then
+        assertThat(student).extracting("name", "age")
+                .containsExactly("재성", 28);
+    }
+
 
 
     @Nested
